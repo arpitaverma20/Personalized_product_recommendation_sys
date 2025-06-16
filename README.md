@@ -1,7 +1,5 @@
 # Personalized_product_recommendation_sys
 
-# 🧠 Personalized Product Recommendation System
-
 This project is a machine learning-powered **chatbot** that recommends personalized skincare and haircare products based on user preferences. It leverages a **CSV dataset** for training, a **Random Forest model** for predictions, and a **Flask web app** to interact with users through a simple chat interface.
 
 ---
