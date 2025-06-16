@@ -1,0 +1,13 @@
+Sample Recommendations from recommendation_model.pkl:
+
+Input: Category=Skincare (encoded=1), Feature1=0.7, Feature2=0.85
+Top 3 Recommended Products:
+ - Moisturizing Cream (Skincare) | f1=0.8, f2=0.85
+ - Vitamin C Serum (Skincare) | f1=0.6, f2=0.9
+ - Face Scrub (Skincare) | f1=0.7, f2=0.7
+
+Input: Category=Haircare (encoded=0), Feature1=0.3, Feature2=0.5
+Top 3 Recommended Products:
+ - Dandruff Shampoo (Haircare) | f1=0.3, f2=0.5
+ - Hair Conditioner (Haircare) | f1=0.25, f2=0.55
+ - Hair Growth Oil (Haircare) | f1=0.2, f2=0.6

@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Recommendation Chat</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        label, select, input { margin: 5px; }
+        #result { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Get Product Recommendations</h1>
+    <form id="recommendForm">
+        <label>Category:</label>
+        <select name="category">
+            <option value="Skincare">Skincare</option>
+            <option value="Haircare">Haircare</option>
+        </select><br>
+        <label>Feature 1:</label>
+        <input type="number" step="0.01" name="feature1"><br>
+        <label>Feature 2:</label>
+        <input type="number" step="0.01" name="feature2"><br>
+        <button type="submit">Recommend</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('recommendForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const response = await fetch('/recommend', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+            const resultDiv = document.getElementById('result');
+            if (data.error) {
+                resultDiv.innerHTML = `<p style="color: red;">${data.error}</p>`;
+            } else {
+                resultDiv.innerHTML = '<h3>Recommended Products:</h3><ul>' +
+                    data.map(p => `<li>${p.product_name} (${p.category})</li>`).join('') +
+                    '</ul>';
+            }
+        });
+    </script>
+</body>
+</html>

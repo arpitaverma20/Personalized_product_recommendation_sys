@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Recommender</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #f9f9f9;
+    }
+    h1 {
+      color: #333;
+    }
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 400px;
+    }
+    label, select {
+      display: block;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      background: #007BFF;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Get Your Product Recommendation</h1>
+  <form id="predict-form">
+    <label>
+      Skin Type:
+      <select name="skin_type">
+        <option value="Dry">Dry</option>
+        <option value="Oily">Oily</option>
+        <option value="Combination">Combination</option>
+        <option value="Sensitive">Sensitive</option>
+      </select>
+    </label>
+
+    <label>
+      Hair Concerns:
+      <select name="hair_concerns">
+        <option value="Dryness">Dryness</option>
+        <option value="Dandruff">Dandruff</option>
+        <option value="Hair Fall">Hair Fall</option>
+      </select>
+    </label>
+
+    <label>
+      Allergies:
+      <select name="allergies">
+        <option value="Paraben-free">Paraben-free</option>
+        <option value="Sulfate-free">Sulfate-free</option>
+        <option value="Fragrance-free">Fragrance-free</option>
+      </select>
+    </label>
+
+    <label>
+      Price Range:
+      <select name="price_range">
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+    </label>
+
+    <button type="submit">Recommend</button>
+    <div id="result"></div>
+  </form>
+
+  <script>
+    document.getElementById('predict-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+      const jsonData = Object.fromEntries(formData.entries());
+
+      const response = await fetch('http://127.0.0.1:5000/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(jsonData)
+      });
+
+      const resultDiv = document.getElementById('result');
+      const data = await response.json();
+
+      if (response.ok) {
+        resultDiv.textContent = "✅ Recommended Product: " + data.recommended_product;
+      } else {
+        resultDiv.textContent = "❌ Error: " + data.error;
+      }
+    });
+  </script>
+</body>
+</html>
