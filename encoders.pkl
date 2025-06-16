@@ -1,0 +1,3 @@
+{
+    'category_encoder': LabelEncoder().fit(['Skincare', 'Haircare'])
+}
